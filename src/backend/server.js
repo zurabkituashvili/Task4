@@ -225,12 +225,12 @@ app.get("/check-user-status", authenticateUser, (req, res) => {
   );
 });
 
-const port = 3306;
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
-// const port = 8080;
+// const port = 3306;
 // app.listen(port, () => {
 //   console.log(`Server is running on port ${port}`);
 // });
+
+const port = 8080;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
