@@ -7,11 +7,12 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://task4-rust.vercel.app",
+    origin: "https://task4-cyan.vercel.app", // Update with your frontend's URL
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
+    credentials: true, // Enable sending cookies
   })
 );
+
 app.use(bodyParser.json());
 
 const db = mysql.createConnection({
