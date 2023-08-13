@@ -7,7 +7,13 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://task4-cyan.vercel.app/", // Update with your frontend's URL
+    origin: "http://localhost:8000", // Update with your frontend's URL
+  })
+);
+
+app.use(
+  cors({
+    origin: "https://task4-cyan.vercel.app", // Update with your frontend's URL
     credentials: true, // Enable sending cookies
   })
 );
