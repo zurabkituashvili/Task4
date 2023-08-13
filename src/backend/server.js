@@ -89,7 +89,7 @@ app.post("/register", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  const { email, password, status } = req.body;
+  const { email, password } = req.body;
   db.query("SELECT * FROM users WHERE email = ?", [email], (err, results) => {
     if (err) {
       console.error("Error finding user:", err);
@@ -230,7 +230,7 @@ app.get("/check-user-status", authenticateUser, (req, res) => {
 //   console.log(`Server is running on port ${port}`);
 // });
 
-const port = 8080;
+const port = 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
