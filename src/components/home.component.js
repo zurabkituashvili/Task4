@@ -4,7 +4,7 @@ import { FaUnlock, FaTrash } from "react-icons/fa";
 
 export default class Home extends Component {
   state = {
-    users: [], 
+    users: [],
     selectedUsers: [],
   };
 
@@ -14,7 +14,7 @@ export default class Home extends Component {
     });
     const { user } = this.props;
     if (user) {
-      this.checkUserStatusInterval = setInterval(this.checkUserStatus, 3000); 
+      this.checkUserStatusInterval = setInterval(this.checkUserStatus, 3000);
     }
   }
   componentWillUnmount() {
@@ -59,7 +59,7 @@ export default class Home extends Component {
     axios
       .post("/delete-users", { selectedUserIds: selectedUsers })
       .then((res) => {
-        window.location.reload(); 
+        window.location.reload();
       })
       .catch((err) => {
         console.error("Error deleting users:", err);
@@ -77,7 +77,7 @@ export default class Home extends Component {
       .post("/block-users", { selectedUserIds: selectedUsers })
       .then((res) => {
         if (selectedUsers.includes(user.id)) {
-          localStorage.clear(); 
+          localStorage.clear();
           window.location.reload();
         }
         window.location.reload();
@@ -96,7 +96,7 @@ export default class Home extends Component {
     axios
       .post("/unblock-users", { selectedUserIds: selectedUsers })
       .then((res) => {
-        window.location.reload(); 
+        window.location.reload();
       })
       .catch((err) => {
         console.error("Error unblocking users:", err);
@@ -121,7 +121,7 @@ export default class Home extends Component {
           <span className="ms-auto d-flex justify-content-start mb-3">
             <div className="d-flex justify-content-start mb-3">
               <button
-                onClick={this.handleBlock} 
+                onClick={this.handleBlock}
                 className="btn btn-danger me-2"
                 user={user}
                 selectedUsers={selectedUsers}
@@ -191,7 +191,7 @@ export default class Home extends Component {
         </div>
       );
     } else {
-      return <h2>You are not logged in</h2>;
+      return <h2>You are logged in</h2>;
     }
   }
 }
