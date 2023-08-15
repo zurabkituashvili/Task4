@@ -9,10 +9,17 @@ export default class Home extends Component {
   };
 
   componentDidMount() {
-    // Fetch all users' data
     axios.get("users").then((res) => {
       this.setState({ users: res.data.users });
     });
+    const { user } = this.props;
+    if (user) {
+      this.checkUserStatusInterval = setInterval(this.checkUserStatus, 3000);
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.checkUserStatusInterval);
   }
 
   checkUserStatus = () => {
