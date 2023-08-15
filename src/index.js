@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://backend-api-cugu.onrender.com";
+axios.defaults.baseURL = "https://backend-teu6.onrender.com";
 
 // axios.defaults.baseURL = "http://localhost:8000/";
 
