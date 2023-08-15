@@ -14,7 +14,6 @@ export default class App extends Component {
   state = {
     user: null,
     loading: true,
-    selectedUsers: [],
   };
 
   componentDidMount = () => {
@@ -41,7 +40,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { user, loading, selectedUsers } = this.state;
+    const { user, loading } = this.state;
     return (
       <BrowserRouter>
         <div className="App">
@@ -52,13 +51,7 @@ export default class App extends Component {
                 <Route
                   exact
                   path="/"
-                  Component={() => (
-                    <Home
-                      user={user}
-                      loading={loading}
-                      selectedUsers={selectedUsers}
-                    />
-                  )}
+                  Component={() => <Home user={user} loading={loading} />}
                 />
                 <Route
                   exact

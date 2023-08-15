@@ -5,7 +5,7 @@ import { FaUnlock, FaTrash } from "react-icons/fa";
 export default class Home extends Component {
   state = {
     users: [],
-    selectedUsers: [],
+    selectedusers: [],
   };
 
   componentDidMount() {
@@ -13,7 +13,26 @@ export default class Home extends Component {
     axios.get("users").then((res) => {
       this.setState({ users: res.data.users });
     });
+
+    // const { user } = this.props;
+
+    // if (user) {
+    //   // Check user's status periodically
+    //   this.checkUserStatusInterval = setInterval(this.checkUserStatus, 3000);
+    // }
   }
+
+  // componentWillUnmount() {
+  //   clearInterval(this.checkUserStatusInterval);
+  // }
+
+  // checkUserStatus = () => {
+  //   axios.get("/check-user-status").then((res) => {
+  //     if (res.data.status === "inactive") {
+  //       localStorage.clear(); // Clear local storage
+  //     }
+  //   });
+  // };
 
   checkUserStatus = () => {
     axios.get("/check-user-status").then((res) => {
@@ -24,34 +43,34 @@ export default class Home extends Component {
   };
 
   toggleSelectUser = (userId) => {
-    if (this.state.selectedUsers.includes(userId)) {
+    if (this.state.selectedusers.includes(userId)) {
       this.setState((prevState) => ({
-        selectedUsers: prevState.selectedUsers.filter((id) => id !== userId),
+        selectedusers: prevState.selectedusers.filter((id) => id !== userId),
       }));
     } else {
       this.setState((prevState) => ({
-        selectedUsers: [...prevState.selectedUsers, userId],
+        selectedusers: [...prevState.selectedusers, userId],
       }));
     }
   };
 
   toggleSelectAll = () => {
-    const { users, selectedUsers } = this.state;
-    if (selectedUsers.length === users.length) {
-      this.setState({ selectedUsers: [] });
+    const { users, selectedusers } = this.state;
+    if (selectedusers.length === users.length) {
+      this.setState({ selectedusers: [] });
     } else {
-      this.setState({ selectedUsers: users.map((user) => user.id) });
+      this.setState({ selectedusers: users.map((user) => user.id) });
     }
   };
 
   handleDelete = () => {
-    const { selectedUsers } = this.state;
-    if (selectedUsers.length === 0) {
+    const { selectedusers } = this.state;
+    if (selectedusers.length === 0) {
       alert("Please select users to delete");
       return;
     }
     axios
-      .post("/delete-users", { selectedUserIds: selectedUsers })
+      .post("/delete-users", { selectedUserIds: selectedusers })
       .then((res) => {
         window.location.reload();
       })
@@ -61,16 +80,16 @@ export default class Home extends Component {
   };
 
   handleBlock = () => {
-    const { selectedUsers } = this.state;
+    const { selectedusers } = this.state;
     const { user } = this.props;
-    if (selectedUsers.length === 0) {
+    if (selectedusers.length === 0) {
       alert("Please select users to block");
       return;
     }
     axios
-      .post("/block-users", { selectedUserIds: selectedUsers })
+      .post("/block-users", { selectedUserIds: selectedusers })
       .then((res) => {
-        if (selectedUsers.includes(user.id)) {
+        if (selectedusers.includes(user.id)) {
           localStorage.clear();
           window.location.reload();
         }
@@ -82,13 +101,13 @@ export default class Home extends Component {
   };
 
   handleUnblock = () => {
-    const { selectedUsers } = this.state;
-    if (selectedUsers.length === 0) {
+    const { selectedusers } = this.state;
+    if (selectedusers.length === 0) {
       alert("Please select users to delete");
       return;
     }
     axios
-      .post("/unblock-users", { selectedUserIds: selectedUsers })
+      .post("/unblock-users", { selectedUserIds: selectedusers })
       .then((res) => {
         window.location.reload();
       })
@@ -99,7 +118,7 @@ export default class Home extends Component {
 
   render() {
     const { user, loading } = this.props;
-    const { users, selectedUsers } = this.state;
+    const { users, selectedusers } = this.state;
     if (loading) {
       return <h2>Loading...</h2>;
     }
@@ -118,7 +137,7 @@ export default class Home extends Component {
                 onClick={this.handleBlock}
                 className="btn btn-danger me-2"
                 user={user}
-                selectedUsers={selectedUsers}
+                selectedusers={selectedusers}
               >
                 Block
               </button>
@@ -126,7 +145,7 @@ export default class Home extends Component {
                 onClick={this.handleUnblock}
                 className="btn btn-success me-2"
                 user={user}
-                selectedUsers={selectedUsers}
+                selectedusers={selectedusers}
               >
                 <FaUnlock />
                 UnBlock
@@ -135,7 +154,7 @@ export default class Home extends Component {
                 onClick={this.handleDelete}
                 className="btn btn-warning "
                 user={user}
-                selectedUsers={selectedUsers}
+                selectedusers={selectedusers}
               >
                 <FaTrash />
                 Delete
@@ -156,7 +175,7 @@ export default class Home extends Component {
                   Select All
                   <input
                     type="checkbox"
-                    checked={selectedUsers.length === users.length}
+                    checked={selectedusers.length === users.length}
                     onChange={this.toggleSelectAll}
                   />
                 </th>
@@ -174,7 +193,7 @@ export default class Home extends Component {
                   <td className="tdc">
                     <input
                       type="checkbox"
-                      checked={selectedUsers.includes(userData.id)}
+                      checked={selectedusers.includes(userData.id)}
                       onChange={() => this.toggleSelectUser(userData.id)}
                     />
                   </td>
