@@ -14,25 +14,25 @@ export default class Home extends Component {
       this.setState({ users: res.data.users });
     });
 
-    // const { user } = this.props;
+    const { user } = this.props;
 
-    // if (user) {
-    //   // Check user's status periodically
-    //   this.checkUserStatusInterval = setInterval(this.checkUserStatus, 3000);
-    // }
+    if (user) {
+      // Check user's status periodically
+      this.checkUserStatusInterval = setInterval(this.checkUserStatus, 3000);
+    }
   }
 
-  // componentWillUnmount() {
-  //   clearInterval(this.checkUserStatusInterval);
-  // }
+  componentWillUnmount() {
+    clearInterval(this.checkUserStatusInterval);
+  }
 
-  // checkUserStatus = () => {
-  //   axios.get("/check-user-status").then((res) => {
-  //     if (res.data.status === "inactive") {
-  //       localStorage.clear(); // Clear local storage
-  //     }
-  //   });
-  // };
+  checkUserStatus = () => {
+    axios.get("/check-user-status").then((res) => {
+      if (res.data.status === "inactive") {
+        localStorage.clear(); // Clear local storage
+      }
+    });
+  };
 
   checkUserStatus = () => {
     axios.get("/check-user-status").then((res) => {
@@ -134,7 +134,10 @@ export default class Home extends Component {
           <span className="ms-auto d-flex justify-content-start mb-3">
             <div className="d-flex justify-content-start mb-3">
               <button
-                onClick={this.handleBlock}
+                onClick={() => {
+                  this.handleBlock();
+                  this.checkUserStatus();
+                }}
                 className="btn btn-danger me-2"
                 user={user}
                 selectedusers={selectedusers}
