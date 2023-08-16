@@ -34,14 +34,6 @@ export default class Home extends Component {
     });
   };
 
-  checkUserStatus = () => {
-    axios.get("/check-user-status").then((res) => {
-      if (res.data.status === "inactive") {
-        localStorage.clear();
-      }
-    });
-  };
-
   toggleSelectUser = (userId) => {
     if (this.state.selectedusers.includes(userId)) {
       this.setState((prevState) => ({
