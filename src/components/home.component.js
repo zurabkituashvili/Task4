@@ -18,7 +18,7 @@ export default class Home extends Component {
 
     if (user) {
       // Check user's status periodically
-      this.checkUserStatusInterval = setInterval(this.checkUserStatus, 3000);
+      this.checkUserStatusInterval = setInterval(this.checkUserStatus, 10000);
     }
   }
 
