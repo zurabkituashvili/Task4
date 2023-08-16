@@ -36,7 +36,10 @@ export default class Nav extends Component {
       );
     }
     return (
-      <nav className="navbar navbar-expand navbar-light fixed-top position-sticky ">
+      <nav
+        className="navbar navbar-expand navbar-light fixed-top position-sticky"
+        style={{ width: "auto" }}
+      >
         <div className="container">
           <Link to={"/"} className="navbar-brand">
             Home
